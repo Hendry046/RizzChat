@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "454456377194",
+    "project_id": "rizzchat-a8921",
+    "storage_bucket": "rizzchat-a8921.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:454456377194:android:5e0eed56c8cda9140b6f13",
+        "android_client_info": {
+          "package_name": "com.example.rizzchat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4nobIlzpRTDd7I4lqQWNrIBHLqIagTWs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
