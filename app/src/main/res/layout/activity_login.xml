@@ -76,7 +76,7 @@
                 android:textAlignment="center"
                 android:textSize="17sp"
                 android:textStyle="bold"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="#000000"
                 />
 
             <Button
@@ -108,7 +108,7 @@
                 android:textAlignment="center"
                 android:textSize="17sp"
                 android:textStyle="bold"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="#000000"
                 />
 
             <TextView
@@ -118,6 +118,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/need_new_account_link"
                 android:text="or Login using your"
+                android:textColor="@color/colorPrimary"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="23dp"
