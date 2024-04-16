@@ -108,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
                                                         public void onComplete(@NonNull Task<Void> task) {
                                                             if (task.isSuccessful()) {
                                                                 SendUserToMainActivity();
-                                                                Toast.makeText(LoginActivity.this, "Logged in Successful...", Toast.LENGTH_SHORT).show();
+                                                                Toast.makeText(LoginActivity.this, "Logged in Successful", Toast.LENGTH_SHORT).show();
                                                                 loadingBar.dismiss();
                                                             }
                                                         }

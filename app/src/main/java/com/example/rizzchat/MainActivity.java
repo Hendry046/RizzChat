@@ -36,8 +36,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 
-public class MainActivity extends AppCompatActivity
-{
+public class MainActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private ViewPager myViewPager;
     private TabLayout myTabLayout;
@@ -48,51 +47,43 @@ public class MainActivity extends AppCompatActivity
     private DatabaseReference RootRef;
     private String currentUserID;
 
-
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
-        currentUserID = mAuth.getCurrentUser().getUid();
         RootRef = FirebaseDatabase.getInstance().getReference();
 
-
-        mToolbar = (Toolbar) findViewById(R.id.main_page_toolbar);
+        mToolbar = findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle("RizzChat");
 
-
-        myViewPager = (ViewPager) findViewById(R.id.main_tabs_pager);
+        myViewPager = findViewById(R.id.main_tabs_pager);
         myTabsAccessorAdapter = new TabsAccessorAdapter(getSupportFragmentManager());
         myViewPager.setAdapter(myTabsAccessorAdapter);
 
-
-        myTabLayout = (TabLayout) findViewById(R.id.main_tabs);
+        myTabLayout = findViewById(R.id.main_tabs);
         myTabLayout.setupWithViewPager(myViewPager);
     }
 
-
     @Override
-    protected void onStart()
-    {
+    protected void onStart() {
         super.onStart();
 
-        if (currentUser == null)
-        {
-            SendUserToLoginActivity();
-        }
-        else
-        {
-            updateUserStatus("online");
+        currentUser = mAuth.getCurrentUser();
 
+        if (currentUser == null) {
+            SendUserToLoginActivity();
+        } else {
+            currentUserID = currentUser.getUid();
+            updateUserStatus("online");
             VerifyUserExistance();
         }
     }
+
+
 
 
     @Override
@@ -207,7 +198,7 @@ public class MainActivity extends AppCompatActivity
                 String groupName = groupNameField.getText().toString();
 
                 if (TextUtils.isEmpty(groupName)) {
-                    Toast.makeText(MainActivity.this, "Please write Group Name...", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Please enter a Group Name", Toast.LENGTH_SHORT).show();
                 } else {
                     CreateNewGroup(groupName);
                 }
@@ -251,7 +242,7 @@ public class MainActivity extends AppCompatActivity
                     {
                         if (task.isSuccessful())
                         {
-                            Toast.makeText(MainActivity.this, groupName + " group is Created Successfully...", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, groupName + " group is Created Successfully", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

@@ -2,7 +2,6 @@ package com.example.rizzchat;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -224,7 +224,7 @@ public class ChatActivity extends AppCompatActivity
 
         if (TextUtils.isEmpty(messageText))
         {
-            Toast.makeText(this, "first write your message...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Enter a message.", Toast.LENGTH_SHORT).show();
         }
         else
         {
@@ -255,7 +255,7 @@ public class ChatActivity extends AppCompatActivity
                 {
                     if (task.isSuccessful())
                     {
-                        Toast.makeText(ChatActivity.this, "Message Sent Successfully...", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(ChatActivity.this, "Message Sent Successfully...", Toast.LENGTH_SHORT).show();
                     }
                     else
                     {

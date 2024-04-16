@@ -1,9 +1,5 @@
 package com.example.rizzchat;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -14,6 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -115,7 +114,7 @@ public class SettingsActivity extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                Toast.makeText(SettingsActivity.this, "Profile Image uploaded Successfully...", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SettingsActivity.this, "Profile Image updated Successfully", Toast.LENGTH_SHORT).show();
 
                                 filePath.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                     @Override
@@ -126,7 +125,7 @@ public class SettingsActivity extends AppCompatActivity {
                                                     @Override
                                                     public void onComplete(@NonNull Task<Void> task) {
                                                         if (task.isSuccessful()) {
-                                                            Toast.makeText(SettingsActivity.this, "Image saved in Database, Successfully...", Toast.LENGTH_SHORT).show();
+//                                                            Toast.makeText(SettingsActivity.this, "Image saved in Database, Successfully...", Toast.LENGTH_SHORT).show();
                                                             loadingBar.dismiss();
                                                         } else {
                                                             String message = task.getException().getMessage();
@@ -159,9 +158,9 @@ public class SettingsActivity extends AppCompatActivity {
         String setStatus = userStatus.getText().toString();
 
         if (TextUtils.isEmpty(setUserName)) {
-            Toast.makeText(this, "Please write your user name first....", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please enter a username", Toast.LENGTH_SHORT).show();
         } else if (TextUtils.isEmpty(setStatus)) {
-            Toast.makeText(this, "Please write your status....", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please write your status", Toast.LENGTH_SHORT).show();
         } else {
             HashMap<String, Object> profileMap = new HashMap<>();
             profileMap.put("uid", currentUserID);
@@ -173,7 +172,7 @@ public class SettingsActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
                                 SendUserToMainActivity();
-                                Toast.makeText(SettingsActivity.this, "Profile Updated Successfully...", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SettingsActivity.this, "Profile Updated Successfully", Toast.LENGTH_SHORT).show();
                             } else {
                                 String message = task.getException().toString();
                                 Toast.makeText(SettingsActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
@@ -204,7 +203,7 @@ public class SettingsActivity extends AppCompatActivity {
                             userStatus.setText(retrievesStatus);
                         } else {
                             userName.setVisibility(View.VISIBLE);
-                            Toast.makeText(SettingsActivity.this, "Please set & update your profile information...", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SettingsActivity.this, "Please set & update your profile information", Toast.LENGTH_SHORT).show();
                         }
                     }
 

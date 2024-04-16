@@ -1,8 +1,5 @@
 package com.example.rizzchat;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -61,7 +61,7 @@ public class PhoneLoginActivity extends AppCompatActivity
 
                 if (TextUtils.isEmpty(phoneNumber))
                 {
-                    Toast.makeText(PhoneLoginActivity.this, "Please enter your phone number first...", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PhoneLoginActivity.this, "Please enter your phone number", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
@@ -92,7 +92,7 @@ public class PhoneLoginActivity extends AppCompatActivity
 
                 if (TextUtils.isEmpty(verificationCode))
                 {
-                    Toast.makeText(PhoneLoginActivity.this, "Please write verification code first...", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PhoneLoginActivity.this, "Please enter the verification code first", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
@@ -119,7 +119,7 @@ public class PhoneLoginActivity extends AppCompatActivity
             public void onVerificationFailed(FirebaseException e)
             {
                 loadingBar.dismiss();
-                Toast.makeText(PhoneLoginActivity.this, "Invalid Phone Number, Please enter correct phone number with your country code...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PhoneLoginActivity.this, "Invalid Phone Number, Please enter correct phone number with your country code", Toast.LENGTH_SHORT).show();
 
                 SendVerificationCodeButton.setVisibility(View.VISIBLE);
                 InputPhoneNumber.setVisibility(View.VISIBLE);
@@ -136,7 +136,7 @@ public class PhoneLoginActivity extends AppCompatActivity
                 mResendToken = token;
 
                 loadingBar.dismiss();
-                Toast.makeText(PhoneLoginActivity.this, "Code has been sent, please check and verify...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PhoneLoginActivity.this, "Code has been sent", Toast.LENGTH_SHORT).show();
 
                 SendVerificationCodeButton.setVisibility(View.INVISIBLE);
                 InputPhoneNumber.setVisibility(View.INVISIBLE);
@@ -158,7 +158,7 @@ public class PhoneLoginActivity extends AppCompatActivity
                         if (task.isSuccessful())
                         {
                             loadingBar.dismiss();
-                            Toast.makeText(PhoneLoginActivity.this, "Congratulations, you're logged in successfully...", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PhoneLoginActivity.this, "Congratulations, you're logged in successfully", Toast.LENGTH_SHORT).show();
                             SendUserToMainActivity();
                         }
                         else

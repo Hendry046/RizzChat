@@ -164,7 +164,7 @@ public class GroupChatActivity extends AppCompatActivity
 
         if (TextUtils.isEmpty(message))
         {
-            Toast.makeText(this, "Please write message first...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Enter a message", Toast.LENGTH_SHORT).show();
         }
         else
         {

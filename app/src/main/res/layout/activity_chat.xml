@@ -42,18 +42,20 @@
             android:id="@+id/send_files_btn"
             android:layout_width="60dp"
             android:layout_height="50dp"
-            android:src="@drawable/send_files"
+            android:src="@drawable/sendfiles"
             android:layout_alignParentStart="true"
             android:backgroundTint="@android:color/white"
-            />
+            android:importantForAccessibility="no" />
 
 
         <EditText
             android:id="@+id/input_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="type message here..."
+            android:hint="Type message here..."
             android:padding="15dp"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="#808080"
             android:maxLines="5"
             android:layout_toEndOf="@+id/send_files_btn"
             android:layout_toStartOf="@+id/send_message_btn"
@@ -67,7 +69,7 @@
             android:src="@drawable/send_message"
             android:layout_alignParentEnd="true"
             android:backgroundTint="@android:color/white"
-            />
+            android:importantForAccessibility="no" />
 
     </RelativeLayout>
 
