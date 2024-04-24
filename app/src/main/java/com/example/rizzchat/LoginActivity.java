@@ -24,13 +24,12 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
 public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
-    private ProgressDialog loadingBar;
+    private DatabaseReference usersRef;
 
     private Button loginButton, phoneLoginButton;
     private EditText userEmail, userPassword;
     private TextView needNewAccountLink, forgetPasswordLink;
-
-    private DatabaseReference usersRef;
+    private ProgressDialog loadingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,11 +77,8 @@ public class LoginActivity extends AppCompatActivity {
         String email = userEmail.getText().toString();
         String password = userPassword.getText().toString();
 
-        if (TextUtils.isEmpty(email)) {
-            Toast.makeText(this, "Please enter email...", Toast.LENGTH_SHORT).show();
-        }
-        if (TextUtils.isEmpty(password)) {
-            Toast.makeText(this, "Please enter password...", Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
+            Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show();
         } else {
             loadingBar.setTitle("Sign In");
             loadingBar.setMessage("Please wait....");
@@ -94,37 +90,47 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                String currentUserId = mAuth.getCurrentUser().getUid();
-                                FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<String> task) {
-                                        if (task.isSuccessful()) {
-                                            String deviceToken = task.getResult();
+                                FirebaseUser currentUser = mAuth.getCurrentUser();
+                                if (currentUser != null) {
+                                    String currentUserId = currentUser.getUid();
+                                    FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<String> task) {
+                                            if (task.isSuccessful()) {
+                                                String deviceToken = task.getResult();
 
-                                            usersRef.child(currentUserId).child("device_token")
-                                                    .setValue(deviceToken)
-                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                        @Override
-                                                        public void onComplete(@NonNull Task<Void> task) {
-                                                            if (task.isSuccessful()) {
-                                                                SendUserToMainActivity();
-                                                                Toast.makeText(LoginActivity.this, "Logged in Successful", Toast.LENGTH_SHORT).show();
-                                                                loadingBar.dismiss();
+                                                usersRef.child(currentUserId).child("device_token")
+                                                        .setValue(deviceToken)
+                                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                            @Override
+                                                            public void onComplete(@NonNull Task<Void> task) {
+                                                                if (task.isSuccessful()) {
+                                                                    SendUserToMainActivity();
+                                                                    Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
+                                                                    loadingBar.dismiss();
+                                                                }
                                                             }
-                                                        }
-                                                    });
+                                                        });
+                                            }
                                         }
-                                    }
-                                });
+                                    });
+                                }
                             } else {
-                                String message = task.getException().toString();
-                                Toast.makeText(LoginActivity.this, "Error : " + message, Toast.LENGTH_SHORT).show();
+                                String errorMessage = task.getException().getMessage();
+                                if (errorMessage.contains("The email address is badly formatted")) {
+                                    Toast.makeText(LoginActivity.this, "Invalid email", Toast.LENGTH_SHORT).show();
+                                } else if (errorMessage.contains("The password is invalid")) {
+                                    Toast.makeText(LoginActivity.this, "Invalid password", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(LoginActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                                }
                                 loadingBar.dismiss();
                             }
                         }
                     });
         }
     }
+
 
     private void InitializeFields() {
         loginButton = findViewById(R.id.login_button);

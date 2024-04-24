@@ -50,9 +50,13 @@ dependencies {
 //    implementation ("com.android.support:support-v4:28.0.0-rc01")
 //    implementation ("com.android.support.constraint:constraint-layout:2.0.4")
     implementation ("com.google.firebase:firebase-messaging:23.4.1")
+//    implementation ('com.google.firebase:firebase-messaging:23.4.1')
     implementation ("com.firebaseui:firebase-ui-database:8.0.2")
 //    implementation ("com.android.support:support-v4:28.0.0-rc01")
     implementation ("de.hdodenhof:circleimageview:2.2.0")
 //    implementation ("com.theartofdev.edmodo:android-image-cropper:2.8.+")
     implementation ("com.squareup.picasso:picasso:2.71828")
+
+    implementation ("androidx.viewpager:viewpager:1.0.0")
+
 }

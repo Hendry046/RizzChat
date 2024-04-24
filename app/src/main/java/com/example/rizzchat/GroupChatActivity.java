@@ -50,7 +50,6 @@ public class GroupChatActivity extends AppCompatActivity
         currentGroupName = getIntent().getExtras().get("groupName").toString();
 //        Toast.makeText(GroupChatActivity.this, currentGroupName, Toast.LENGTH_SHORT).show();
 
-
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
         UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -73,6 +72,13 @@ public class GroupChatActivity extends AppCompatActivity
                 userMessageInput.setText("");
 
                 mScrollView.fullScroll(ScrollView.FOCUS_DOWN);
+            }
+        });
+
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed(); // Go back to previous activity (or fragment)
             }
         });
     }

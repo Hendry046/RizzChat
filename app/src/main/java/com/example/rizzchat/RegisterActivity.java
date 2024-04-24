@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,11 +37,14 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        // Initialize Firebase Auth and Database references
         mAuth = FirebaseAuth.getInstance();
         rootRef = FirebaseDatabase.getInstance().getReference();
 
+        // Initialize UI elements
         InitializeFields();
 
+        // Already have an account link
         alreadyHaveAccountLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,6 +52,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+        // Create Account button click listener
         createAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,12 +65,23 @@ public class RegisterActivity extends AppCompatActivity {
         String email = userEmail.getText().toString();
         String password = userPassword.getText().toString();
 
-        if (TextUtils.isEmpty(email)) {
-            Toast.makeText(this, "Please enter email", Toast.LENGTH_SHORT).show();
+        // Validate email
+        if (!isValidEmail(email)) {
+            Toast.makeText(this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (TextUtils.isEmpty(password)) {
-            Toast.makeText(this, "Please enter password", Toast.LENGTH_SHORT).show();
+
+        // Validate password
+        if (!isValidPassword(password)) {
+            if (!containsNumber(password)) {
+                Toast.makeText(this, "Please include a number in your password", Toast.LENGTH_SHORT).show();
+            } else if (!containsSpecialCharacter(password)) {
+                Toast.makeText(this, "Please include a special character in your password", Toast.LENGTH_SHORT).show();
+            } else if (!containsCapitalLetter(password)) {
+                Toast.makeText(this, "Please include a capital letter in your password", Toast.LENGTH_SHORT).show();
+            } else if (password.length() < 6) {
+                Toast.makeText(this, "Password must be at least 6 characters long", Toast.LENGTH_SHORT).show();
+            }
             return;
         }
 
@@ -79,6 +95,7 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            // After successful account creation
                             FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
                                 @Override
                                 public void onComplete(@NonNull Task<String> task) {
@@ -125,5 +142,31 @@ public class RegisterActivity extends AppCompatActivity {
         mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(mainIntent);
         finish();
+    }
+
+    // Password validation function
+    private boolean isValidPassword(String password) {
+        String passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{6,}$";
+        return password.matches(passwordPattern);
+    }
+
+    // Email validation function
+    private boolean isValidEmail(CharSequence target) {
+        return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
+    }
+
+    // Check if password contains a number
+    private boolean containsNumber(String password) {
+        return password.matches(".*\\d.*");
+    }
+
+    // Check if password contains a special character
+    private boolean containsSpecialCharacter(String password) {
+        return !password.matches("[A-Za-z0-9 ]*");
+    }
+
+    // Check if password contains a capital letter
+    private boolean containsCapitalLetter(String password) {
+        return !password.equals(password.toLowerCase());
     }
 }

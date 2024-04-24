@@ -15,11 +15,29 @@
         android:background="?attr/colorPrimary"
         app:titleTextColor="@android:color/white" />
 
+<!--    &lt;!&ndash; SearchView &ndash;&gt;-->
+<!--    <androidx.appcompat.widget.SearchView-->
+<!--        android:id="@+id/search_view"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/find_friends_toolbar"-->
+<!--        android:queryHint="Search"-->
+<!--        android:iconifiedByDefault="false"-->
+<!--        android:background="@android:color/white"-->
+<!--        android:elevation="4dp"-->
+<!--        android:padding="8dp"-->
+<!--        android:paddingStart="16dp"-->
+<!--        android:paddingEnd="16dp"-->
+<!--        android:layout_marginStart="8dp"-->
+<!--        android:layout_marginEnd="8dp"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:layout_marginBottom="8dp"/>-->
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/find_friends_recycler_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/find_friends_toolbar"
+        android:layout_below="@id/find_friends_toolbar"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"/>
 
